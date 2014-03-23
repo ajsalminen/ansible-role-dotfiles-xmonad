@@ -1,0 +1,27 @@
+---
+    - name: Install packages required for installing and using xmonad
+      apt: pkg={{item}} state=present
+      with_items:
+        - cabal-install
+        - ghc6
+        - libx11-dev
+        - libxft-dev
+        - libxrandr-dev
+        - suckless-tools
+      sudo: yes
+
+    - name: Update cabal packagelists
+      command: /usr/bin/cabal update
+      when: xmonad_update is defined
+
+    - name: Install xmonad packages with cabal
+      command: /usr/bin/cabal install {{item }}
+      with_items:
+        - xmonad
+        - xmonad-contrib
+
+    - name: Remove gnome-screensaver to make slock (or xlock work)
+      apt: pkg=gnome-screensaver state=absent
+
+    - name: Copy dotfiles to place
+      copy: src=dotfiles/ dest=~/
