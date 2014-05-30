@@ -25,7 +25,7 @@ main = do
   xmonad $ defaultConfig{
      keys = myKeys <+> keys defaultConfig
     , terminal = "terminator"
-    , workspaces = ["1w", "2w", "3w" , "4d", "5d", "6m", "7p", "8", "9" ]
+    , workspaces = ["Aw", "Sw", "Dw" , "Fd", "Gd", "Hm", "Jp", "K", "L", "Ö", "Ä"]
     , modMask = mod4Mask
     , manageHook = myManageHook <+> manageHook defaultConfig
     , layoutHook = avoidStruts  $  layoutHook defaultConfig
@@ -47,13 +47,14 @@ main = do
 myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList
              [
                 ((m .|. modm, k), windows $ f i)
-               | (i, k) <- zip (XMonad.workspaces conf) [xK_1 ..]
+               | (i, k) <- zip (XMonad.workspaces conf) workspaceKeys
                , (f, m) <- [(W.view, 0), (W.shift, shiftMask), (copy, shiftMask .|. controlMask)]
              ]
+             where workspaceKeys = [xK_a, xK_s, xK_d, xK_f, xK_g, xK_h, xK_j, xK_k, xK_l, xK_odiaeresis, xK_adiaeresis]
 
 myManageHook = composeAll
-   [ className =? "Thunderbird" --> doShift "6m"
-   , className =? "Keepassx"      --> doShift "7p"
-   , className =? "Emacs"  --> doShift "4d"
+   [ className =? "Thunderbird" --> doShift "Hm"
+   , className =? "Keepassx"      --> doShift "Jp"
+   , className =? "Emacs"  --> doShift "Fd"
    , manageDocks
    ]
