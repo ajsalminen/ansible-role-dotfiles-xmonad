@@ -42,6 +42,10 @@ main = do
     , ((0, xF86XK_MonBrightnessDown), spawn "sudo /usr/local/sbin/backlight down")
     , ((0, xF86XK_Launch1), spawn "sudo /usr/local/sbin/backlight toggle")
     , ((0, xF86XK_Launch3), spawn "/usr/local/sbin/cpufreq_toggle_osd")
+    , ((mod4Mask, xK_y     ), sendMessage Shrink)
+    , ((mod4Mask, xK_o     ), sendMessage Expand)
+    , ((mod4Mask, xK_u     ), windows W.focusDown  )
+    , ((mod4Mask, xK_i     ), windows W.focusUp  )
     ]
 
 myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList
